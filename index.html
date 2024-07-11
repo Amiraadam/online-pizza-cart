@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect pizza</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer ></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+</head>
+<body>
+        <h1>Perfect Pizza</h1>
+
+        <div x-data="{
+            sCount: 0,
+            mCount: 0,
+            lCount: 0,
+            total: 0,
+            isCheckout: false,
+            inputValue: '',
+            message: '',
+            showMessage: function(msg) {
+                this.message = msg;
+                setTimeout(() => this.message = '', 3000); // Message disappears after 3 seconds
+            },
+            clearCart: function() {
+                this.sCount = 0;
+                this.mCount = 0;
+                this.lCount = 0;
+                this.total = 0;
+            }
+        }">
+            <div class="shopping_cart">
+                <h3>Shopping Cart</h3>
+                <section>
+                    Small**: R49,99
+                    <button x-on:click="sCount++; total += 49.99">+</button>
+                    <button x-on:click="sCount = Math.max(sCount - 1, 0); total = Math.max(total - 49.99, 0)">-</button>
+                    <span x-text="sCount"></span>
+                </section>
+
+                <section>
+                    Medium: R89,99
+                    <button x-on:click="mCount++; total += 89.99">+</button>
+                    <button x-on:click="mCount = Math.max(mCount - 1, 0); total = Math.max(total - 149.99, 0)">-</button>
+                    <span x-text="mCount"></span>
+                </section>
+                <section>
+                    Large*: R129,99
+                    <button x-on:click="lCount++; total += 129.99">+</button>
+                    <button x-on:click="lCount = Math.max(lCount - 1, 0); total = Math.max(total - 199.99, 0)">-</button>
+                    <span x-text="lCount"></span>
+                </section>
+    
+                <div class="checkout" x-show="sCount > 0 || mCount > 0 || lCount > 0">
+                    <p>Total cost: R<span x-text="total.toFixed(2)"></span></p>
+                    <button @click="isCheckout = true">Check out</button>
+                </div>
+    
+                <div class="messages">
+                    <p x-show="message" x-text="message" @click="message = ''"></p>
+                </div>
+    
+                <div x-show="isCheckout">
+                    <p>Message goes here</p>
+                    <label>
+                        Payment amount:
+                        <input type="text" x-model="inputValue">
+                    </label>
+                    <button @click="
+                        if (parseFloat(inputValue) >= total) {
+                            showMessage('Enjoy your pizzas');
+                            clearCart();
+                            isCheckout = false;
+                        } else {
+                            showMessage('Sorry - that is not enough money!');
+                        }
+                    ">Pay</button>
+                </div>
+            </div>
+        </body>
+
+        <div class="pizzas">
+
+            <div class="pizza small_pizza">
+                <h2> small pizza</h2>
+                <img src="pizza.png" width="100">
+                <h3>R49.99</h3>
+                <div>
+                    This is small Tikka Chicken, which has chicken, red onion, mushrooms, and tikka sauce.
+                </div>
+            </div>
+    
+    
+            <div class="pizza medium_pizza">
+                <h2>medium pizza</h2>
+                <img src="pizza.png" width="125">
+                <h3>R89.99</h3>
+                <div>
+                    This medium size Tikka Chicken pizza which has Chicken, Tikka Sauce, Mushroom & Red Onion which comes in pan and traditional.
+    
+                </div>
+            </div>
+    
+    
+            <div class="pizza large_pizza">
+                <h2> large pizza</h2>
+                <img src="pizza.png" width="150">
+                <h3>R129.99</h3>
+                <div>
+                    This large size Tikka Chicken pizza which has Chicken, Tikka Sauce, Mushroom & Red Onion which comes in pan and traditional.
+    
+                </div>
+
+        </div>
+        
+        <div class="pizza contact_us">
+            <h2>Contact details</h2>
+            <p>contact us at 011 480 0123 info@perfectpizza.co.za</p>
+        </div>
+</body>
+</html>
