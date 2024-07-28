@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="index.js" defer ></script>
     <script src="//unpkg.com/alpinejs" defer></script>
-
 </head>
 <body>
         <h1>Perfect Pizza</h1>
@@ -20,36 +19,51 @@
             isCheckout: false,
             inputValue: '',
             message: '',
+            change: 0,
             showMessage: function(msg) {
-                this.message = msg;
-                setTimeout(() => this.message = '', 3000); // Message disappears after 3 seconds
+            this.message = msg;
+            setTimeout(() => this.message = '', 3000); 
             },
+
             clearCart: function() {
                 this.sCount = 0;
                 this.mCount = 0;
                 this.lCount = 0;
                 this.total = 0;
+            },
+        
+            addToCart: function(size, price) {
+                if (size === 'small') {
+                    this.sCount++;
+                    this.total += price;
+                } else if (size === 'medium') {
+                    this.mCount++;
+                    this.total += price;
+                } else if (size === 'large') {
+                    this.lCount++;
+                    this.total += price;
+                }
             }
         }">
             <div class="shopping_cart">
                 <h3>Shopping Cart</h3>
                 <section>
-                    Small**: R49,99
-                    <button x-on:click="sCount++; total += 49.99">+</button>
-                    <button x-on:click="sCount = Math.max(sCount - 1, 0); total = Math.max(total - 49.99, 0)">-</button>
+                    Small: R29,99
+                    <button x-on:click="sCount++; total += 29.99">+</button>
+                    <button x-on:click="sCount = Math.max(sCount - 1, 0); total = Math.max(total - 29.99, 0)">-</button>
                     <span x-text="sCount"></span>
                 </section>
 
                 <section>
-                    Medium: R89,99
-                    <button x-on:click="mCount++; total += 89.99">+</button>
-                    <button x-on:click="mCount = Math.max(mCount - 1, 0); total = Math.max(total - 149.99, 0)">-</button>
+                    Medium: R49,99
+                    <button x-on:click="mCount++; total += 49.99">+</button>
+                    <button x-on:click="mCount = Math.max(mCount - 1, 0); total = Math.max(total - 49.99, 0)">-</button>
                     <span x-text="mCount"></span>
                 </section>
                 <section>
-                    Large*: R129,99
-                    <button x-on:click="lCount++; total += 129.99">+</button>
-                    <button x-on:click="lCount = Math.max(lCount - 1, 0); total = Math.max(total - 199.99, 0)">-</button>
+                    Large: R89,99
+                    <button x-on:click="lCount++; total += 89.99">+</button>
+                    <button x-on:click="lCount = Math.max(lCount - 1, 0); total = Math.max(total - 89.99, 0)">-</button>
                     <span x-text="lCount"></span>
                 </section>
     
@@ -63,14 +77,14 @@
                 </div>
     
                 <div x-show="isCheckout">
-                    <p>Message goes here</p>
                     <label>
                         Payment amount:
                         <input type="text" x-model="inputValue">
                     </label>
                     <button @click="
                         if (parseFloat(inputValue) >= total) {
-                            showMessage('Enjoy your pizzas');
+                            change = parseFloat(inputValue) - total;
+                            showMessage('Enjoy your pizzas! Your change is R' + change.toFixed(2));
                             clearCart();
                             isCheckout = false;
                         } else {
@@ -79,40 +93,41 @@
                     ">Pay</button>
                 </div>
             </div>
-        </body>
 
         <div class="pizzas">
 
             <div class="pizza small_pizza">
-                <h2> small pizza</h2>
-                <img src="pizza.png" width="100">
-                <h3>R49.99</h3>
+                <h2> Small Pizza</h2>
+                <img src="images (2).jpeg" width="100">
+                <h3>R29.99</h3>
                 <div>
                     This is small Tikka Chicken, which has chicken, red onion, mushrooms, and tikka sauce.
                 </div>
+                <button @click="addToCart('small', 29.99)" class="buy_button">Buy</button>
             </div>
     
     
             <div class="pizza medium_pizza">
-                <h2>medium pizza</h2>
-                <img src="pizza.png" width="125">
-                <h3>R89.99</h3>
+                <h2>Medium Pizza</h2>
+                <img src="images (3).jpeg" width="125">
+                <h3>R49.99</h3>
                 <div>
-                    This medium size Tikka Chicken pizza which has Chicken, Tikka Sauce, Mushroom & Red Onion which comes in pan and traditional.
+                    This medium size pepperoni beef seasoned with paprika or other chili pepper, Tikka Sauce, Mushroom & Red Onion soft, slightly smoky, and bright red.
     
                 </div>
+                <button @click="addToCart('medium', 49.00)" class="buy_button">Buy</button>
             </div>
     
     
             <div class="pizza large_pizza">
-                <h2> large pizza</h2>
-                <img src="pizza.png" width="150">
-                <h3>R129.99</h3>
+                <h2> Large Pizza</h2>
+                <img src="download.jpeg" width="150">
+                <h3>R89.99</h3>
                 <div>
-                    This large size Tikka Chicken pizza which has Chicken, Tikka Sauce, Mushroom & Red Onion which comes in pan and traditional.
+                    This large size traditionally topped with pineapple, tomato sauce, mozzarella cheese, and either ham or bacon.
     
                 </div>
-
+                <button @click="addToCart('large', 89.00)" class="buy_button">Buy</button>
             </div>
         </div>
         

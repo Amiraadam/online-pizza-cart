@@ -1,5 +1,5 @@
 body {
-  background-color: #1982C4;
+  background-color: rgb(189, 181, 139)
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 
   h1 {
@@ -17,11 +17,11 @@ body {
   margin-bottom: 1em;
   margin-left: 2em;
   margin-right: 2em;
-  background-color: #8ac926;
+  background-color: #4CAF50;
 }
 
 .pizza {
-  border: 2px solid #6A4C93;
+  border: 2px solid white;
   padding: 1em;
   margin: 1em;
   margin-bottom: 0.5em;
@@ -32,22 +32,42 @@ h1, h2 {
 }
 }
 .medium_pizza {
-  background-color: #FF5400;
+  background-color: maroon;
+  border-color: white;
 
 }
 
 .large_pizza {
-  background-color: #FFBD00;
+  background-color: maroon;
+  border-color: white;
 
 }
 
 .small_pizza {
-  background-color: #f40076;
-
+  background-color: maroon;
+  border-color: white;
 }
 
+.buy_button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buy_button:hover {
+  background-color: #45a049;
+}
 .contact_us {
-  background-color: #8ac926; 
+  background-color: #4CAF50; 
+  border-color: black;
 
     h2 {
     text-align: center; 
@@ -64,17 +84,18 @@ h1, h2 {
 
 @media (min-width: 760px ) {
    body {
-      background-color: #1982C4;
+      background-color: rgb(189, 181, 139);
   }
   
 }
 
 @media (min-width: 960px ) {
   body {
-      background-color: #1982C4;
+      background-color: rgb(189, 181, 139);
   }
   .pizzas {
       display: flex;
+      border-color: black;
   }
   
 }
